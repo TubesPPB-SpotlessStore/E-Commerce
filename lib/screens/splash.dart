@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:spotless_store/utils/routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -11,8 +11,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(Duration(seconds: 3), () => Navigator.pushNamed(context, '/login'));
     super.initState();
+    Timer(
+      Duration(seconds: 3),
+      () {
+        Navigator.pushReplacementNamed(context,
+            rSplash2); // Navigasi ke halaman splash2 setelah beberapa detik
+      },
+    );
   }
 
   @override
