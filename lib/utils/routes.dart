@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:spotless_store/screens/home_screen.dart';
+import 'package:spotless_store/screens/home_screen.dart';
 import 'package:spotless_store/screens/login/login_screen.dart';
 // import 'package:spotless_store/screens/register.dart';
 
@@ -16,9 +16,9 @@ Route? generateRoute(RouteSettings settings) {
     // case rRegister:
     //   _route = _pageRoute(body: RegisterScreen(), settings: settings);
     //   break;
-    // case rHome:
-    //   _route = _pageRoute(body: HomeScreen(), settings: settings);
-    //   break;
+    case rHome:
+      _route = _pageRoute(body: HomeScreen(), settings: settings);
+      break;
   }
   return _route;
 }

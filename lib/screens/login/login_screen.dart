@@ -14,7 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 40, vertical: 70),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: ListView(
           children: [
             Image.asset(
