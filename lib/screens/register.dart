@@ -10,6 +10,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailEdc = TextEditingController();
   final passEdc = TextEditingController();
   bool passInvisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,12 +26,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             SizedBox(
               height: 15,
             ),
-            // Text(
-            //   "Silahkan masukan username dan password anda",
-            //   style: TextStyle(
-            //     fontSize: 14,
-            //   ),
-            // ),
             SizedBox(
               height: 25,
             ),
@@ -56,33 +51,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       passInvisible ? Icons.visibility : Icons.visibility_off),
                   onPressed: () {
                     setState(() {
-                      passInvisible =
-                          !passInvisible; // Toggle _isPasswordVisible ketika ikon mata ditekan
+                      passInvisible = !passInvisible;
                     });
                   },
                 ),
               ),
-              obscureText:
-                  !passInvisible, // Atur obscureText berdasarkan _isPasswordVisible
+              obscureText: !passInvisible,
             ),
             SizedBox(
               height: 50,
             ),
             ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF00CBE1),
-                  elevation: 4,
-                  // shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(10))
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF00CBE1),
+                elevation: 4,
+              ),
+              child: Text(
+                "Register",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white,
                 ),
-                child: Text(
-                  "Register",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white),
-                )),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF00CBE1),
+                elevation: 4,
+              ),
+              child: Text(
+                "Login",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            ),
             SizedBox(
               height: 50,
             ),
@@ -114,8 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ],
             ),
             SizedBox(
-              height:
-                  10, // Tambahkan jarak kecil antara teks dan baris terakhir
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -130,8 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
-                      decoration:
-                          TextDecoration.combine([TextDecoration.underline]),
+                      decoration: TextDecoration.underline,
                       decorationColor: Colors.black,
                       decorationThickness: 2,
                       decorationStyle: TextDecorationStyle.solid,

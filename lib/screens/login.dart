@@ -97,28 +97,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
               ),
               ElevatedButton(
-                  onPressed: () {
-                    context
-                        .read<LoginCubit>()
-                        .login(email: emailEdc.text, password: passEdc.text);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF00CBE1),
-                    elevation: 4,
-                    // shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(50))
-                  ),
-                  child: Text(
-                    "Masuk",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.white),
-                  )),
+                onPressed: () {
+                  context
+                      .read<LoginCubit>()
+                      .login(email: emailEdc.text, password: passEdc.text);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF00CBE1),
+                  elevation: 4,
+                  // shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(50))
+                ),
+                child: Text(
+                  "Masuk",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
+                ),
+              ),
               SizedBox(
                 height: 25,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -132,8 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
-                        decoration:
-                            TextDecoration.combine([TextDecoration.underline]),
+                        decoration: TextDecoration.underline,
                         decorationColor: Colors.black,
                         decorationThickness: 2,
                         decorationStyle: TextDecorationStyle.solid,
@@ -141,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),
