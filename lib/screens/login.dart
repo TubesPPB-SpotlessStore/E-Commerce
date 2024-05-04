@@ -25,12 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 15,
             ),
-            // Text(
-            //   "Silahkan masukan username dan password anda",
-            //   style: TextStyle(
-            //     fontSize: 14,
-            //   ),
-            // ),
             SizedBox(
               height: 25,
             ),
@@ -67,26 +61,58 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 50,
             ),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF00CBE1),
-                  elevation: 4,
-                  // shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(50))
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF00CBE1),
+                elevation: 4,
+                // shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(50))
+              ),
+              child: Text(
+                "Login",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white,
                 ),
-                child: Text(
-                  "Masuk",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white),
-                )),
-            SizedBox(
-              height: 25,
+              ),
             ),
-
+            SizedBox(
+              height: 50, // Tambahkan jarak kecil antara tombol dan garis
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Divider(
+                    color: Colors.black,
+                    thickness: 1.5,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    "atau",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Divider(
+                    color: Colors.black,
+                    thickness: 1.5,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height:
+                  10, // Tambahkan jarak kecil antara teks dan baris terakhir
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

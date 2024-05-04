@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:spotless_store/bloc/login/login_cubit.dart';
-import 'package:spotless_store/screens/splash/splash_screen.dart';
+import 'package:spotless_store/screens/splash.dart';
 import 'package:spotless_store/utils/routes.dart';
 
 void main() {
@@ -12,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Praktikum 6",
+      title: "Spotless Store",
       debugShowCheckedModeBanner: false,
       navigatorKey: NAV_KEY,
       onGenerateRoute: generateRoute,
-      home: SplashScreen(),
+      home: SplashScreen(), // Menampilkan splash pertama kali
     );
   }
 }
