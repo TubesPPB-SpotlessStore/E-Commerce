@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotless_store/bloc/login/login_cubit.dart';
 import 'package:spotless_store/utils/routes.dart';
 
+// Login Screen
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
   @override
@@ -13,6 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailEdc = TextEditingController();
   final passEdc = TextEditingController();
   bool passInvisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ));
           }
           if (state is LoginSuccess) {
-            // context.read<AuthCubit>().loggedIn();
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
@@ -51,18 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: 200,
                 height: 200,
               ),
-              SizedBox(
-                height: 15,
-              ),
-              // Text(
-              //   "Silahkan masukan username dan password anda",
-              //   style: TextStyle(
-              //     fontSize: 14,
-              //   ),
-              // ),
-              SizedBox(
-                height: 25,
-              ),
+              SizedBox(height: 15),
+              SizedBox(height: 25),
               Text(
                 "username",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -70,9 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 controller: emailEdc,
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               Text(
                 "password",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -93,32 +82,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 obscureText: !passInvisible,
               ),
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
               ElevatedButton(
-                  onPressed: () {
-                    context
-                        .read<LoginCubit>()
-                        .login(email: emailEdc.text, password: passEdc.text);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF00CBE1),
-                    elevation: 4,
-                    // shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(50))
+                onPressed: () {
+                  context
+                      .read<LoginCubit>()
+                      .login(email: emailEdc.text, password: passEdc.text);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF00CBE1),
+                  elevation: 4,
+                ),
+                child: Text(
+                  "Masuk",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white,
                   ),
-                  child: Text(
-                    "Masuk",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.white),
-                  )),
-              SizedBox(
-                height: 25,
+                ),
               ),
-
+              SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -141,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),
