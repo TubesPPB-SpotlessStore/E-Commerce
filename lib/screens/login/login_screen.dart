@@ -104,6 +104,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(
+                height: 50, // Tambahkan jarak kecil antara tombol dan garis
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black,
+                      thickness: 1.5,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      "atau",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black,
+                      thickness: 1.5,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
                 height: 25,
               ),
               Row(

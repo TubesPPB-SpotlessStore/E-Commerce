@@ -145,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               SizedBox(
                 height:
-                    10, // Tambahkan jarak kecil antara teks dan baris terakhir
+                    25, // Tambahkan jarak kecil antara teks dan baris terakhir
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
