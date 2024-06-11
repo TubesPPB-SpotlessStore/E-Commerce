@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: EdgeInsets.symmetric(horizontal: 40, vertical: 70),
           child: ListView(
             children: [
               Image.asset(
