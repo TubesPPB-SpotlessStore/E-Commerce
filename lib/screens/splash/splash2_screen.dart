@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../constant.dart';
+import '../../constant.dart';
 // import '../screens/login.dart';
-import '../components/splash2_content.dart';
+import '../../components/splash2_content.dart';
 
 class SplashScreen2 extends StatefulWidget {
   static String routeName = "/splash2";

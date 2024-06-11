@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotless_store/bloc/login/login_cubit.dart';
 import 'package:spotless_store/utils/routes.dart';
-import 'package:spotless_store/bloc/register/register_cubit.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+// Login Screen
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final emailEdc = TextEditingController();
   final passEdc = TextEditingController();
   bool passInvisible = false;
@@ -17,14 +18,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<RegisterCubit, RegisterState>(
+      body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
-          if (state is RegisterLoading) {
+          if (state is LoginLoading) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text('Loading..')));
+              ..showSnackBar(const SnackBar(content: Text('Loading..')));
           }
-          if (state is RegisterFailure) {
+          if (state is LoginFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
@@ -32,15 +33,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 backgroundColor: Colors.red,
               ));
           }
-          if (state is RegisterSuccess) {
+          if (state is LoginSuccess) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
                 content: Text(state.msg),
                 backgroundColor: Colors.green,
               ));
-            Navigator.pushNamedAndRemoveUntil(
-                context, rLogin, (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, rHome, (route) => false);
           }
         },
         child: Container(
@@ -52,12 +52,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 width: 200,
                 height: 200,
               ),
-              SizedBox(
-                height: 15,
-              ),
-              SizedBox(
-                height: 25,
-              ),
+              SizedBox(height: 15),
+              SizedBox(height: 25),
               Text(
                 "username",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -65,9 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               TextFormField(
                 controller: emailEdc,
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               Text(
                 "password",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -81,28 +75,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         : Icons.visibility_off),
                     onPressed: () {
                       setState(() {
-                        passInvisible =
-                            !passInvisible; // Toggle passInvisible ketika ikon mata ditekan
+                        passInvisible = !passInvisible;
                       });
                     },
                   ),
                 ),
-                obscureText:
-                    !passInvisible, // Atur obscureText berdasarkan passInvisible
+                obscureText: !passInvisible,
               ),
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context
+                      .read<LoginCubit>()
+                      .login(email: emailEdc.text, password: passEdc.text);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF00CBE1),
                   elevation: 4,
                   // shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(10))
+                  //     borderRadius: BorderRadius.circular(50))
                 ),
                 child: Text(
-                  "Register",
+                  "Masuk",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -110,54 +104,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               SizedBox(
-                height: 50, // Tambahkan jarak kecil antara tombol dan garis
+                height: 25,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                      thickness: 1.5,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      "atau",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                      thickness: 1.5,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height:
-                    10, // Tambahkan jarak kecil antara teks dan baris terakhir
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Sudah punya akun ?"),
+                  Text("Belum punya akun ?"),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/register');
                     },
                     child: Text(
-                      "Login",
+                      "Daftar",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
-                        decoration:
-                            TextDecoration.combine([TextDecoration.underline]),
+                        decoration: TextDecoration.underline,
                         decorationColor: Colors.black,
                         decorationThickness: 2,
                         decorationStyle: TextDecorationStyle.solid,
@@ -165,7 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),
