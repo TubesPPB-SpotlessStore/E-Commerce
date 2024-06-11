@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotless_store/bloc/login/login_cubit.dart';
-//import 'package:spotless_store/bloc/login/login_cubit.dart';
+import 'package:spotless_store/bloc/register/register_cubit.dart';
 // import 'package:spotless_store/screens/splash/splash_screen.dart';
 import 'package:spotless_store/screens/splash.dart';
 import 'package:spotless_store/utils/routes.dart';
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => LoginCubit()),
-        // BlocProvider(create: (context) => RegisterCubit())
+        BlocProvider(create: (context) => RegisterCubit())
       ],
       child: MaterialApp(
         title: "Spotless Store",
@@ -29,5 +29,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class RegisterCubit {}
