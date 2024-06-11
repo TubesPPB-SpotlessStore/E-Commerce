@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:spotless_store/screens/home_screen.dart';
 import 'package:spotless_store/screens/login/login_screen.dart';
 import 'package:spotless_store/screens/register/register_screen.dart';
-// import 'package:spotless_store/screens/login/login_screen.dart';
-// import 'package:spotless_store/screens/register.dart';
-import 'package:spotless_store/screens/login.dart';
-import 'package:spotless_store/screens/register.dart';
-import 'package:spotless_store/screens/splash.dart';
-import 'package:spotless_store/screens/splash2.dart';
+import 'package:spotless_store/screens/splash/splash_screen.dart';
+import 'package:spotless_store/screens/splash/splash2_screen.dart';
 
 MaterialPageRoute _pageRoute(
         {required Widget body, required RouteSettings settings}) =>
