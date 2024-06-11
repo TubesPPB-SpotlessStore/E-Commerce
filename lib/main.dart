@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotless_store/bloc/login/login_cubit.dart';
+import 'package:spotless_store/bloc/register/register_cubit.dart';
+import 'package:spotless_store/firebase_options.dart';
 //import 'package:spotless_store/bloc/login/login_cubit.dart';
 import 'package:spotless_store/screens/splash/splash_screen.dart';
 import 'package:spotless_store/utils/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -16,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => LoginCubit()),
-        // BlocProvider(create: (context) => RegisterCubit())
+        BlocProvider(create: (context) => RegisterCubit())
       ],
       child: MaterialApp(
         title: "Praktikum 6",
@@ -28,5 +35,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class RegisterCubit {}
