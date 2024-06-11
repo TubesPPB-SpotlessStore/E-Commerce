@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "763029684660",
+    "project_id": "spotless-11e3c",
+    "storage_bucket": "spotless-11e3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763029684660:android:61b4de453e3e50177ef2e1",
+        "android_client_info": {
+          "package_name": "com.example.spotless_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD0j2CNRUu2DFTaTuHs3alT-Xki187Oh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
