@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotless_store/screens/home_screen.dart';
 import 'package:spotless_store/screens/login/login_screen.dart';
 import 'package:spotless_store/screens/register/register_screen.dart';
-// import 'package:spotless_store/screens/register.dart';
+import 'package:spotless_store/screens/products/detail_product_screen.dart';
 
 MaterialPageRoute _pageRoute(
         {required Widget body, required RouteSettings settings}) =>
@@ -20,6 +20,18 @@ Route? generateRoute(RouteSettings settings) {
     case rHome:
       _route = _pageRoute(body: HomeScreen(), settings: settings);
       break;
+    case rProductDetail:
+      if (_args is Map<String, dynamic>) {
+        _route = _pageRoute(
+          body: ProductDetailScreen(
+            imagePath: _args['imagePath'],
+            title: _args['title'],
+            price: _args['price'],
+          ),
+          settings: settings,
+        );
+      }
+      break;
   }
   return _route;
 }
@@ -28,3 +40,4 @@ final NAV_KEY = GlobalKey<NavigatorState>();
 const String rLogin = '/login';
 const String rRegister = '/register';
 const String rHome = '/home';
+const String rProductDetail = '/product-detail';
