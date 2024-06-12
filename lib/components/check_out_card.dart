@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spotless_store/utils/routes.dart';
+import '../../constant.dart';
 
 class CheckoutCard extends StatelessWidget {
   const CheckoutCard({
@@ -50,8 +52,20 @@ class CheckoutCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("Check Out"),
+                    onPressed: () {
+                      Navigator.pushNamed(context, rPayment);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kPrimaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
+                      "Pesan",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, color: Colors.white),
+                    ),
                   ),
                 ),
               ],
