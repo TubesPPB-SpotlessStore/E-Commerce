@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: EdgeInsets.symmetric(horizontal: 40, vertical: 70),
           child: ListView(
             children: [
               Image.asset(
@@ -102,6 +102,36 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontSize: 20,
                       color: Colors.white),
                 ),
+              ),
+              SizedBox(
+                height: 50, // Tambahkan jarak kecil antara tombol dan garis
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black,
+                      thickness: 1.5,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      "atau",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black,
+                      thickness: 1.5,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 25,

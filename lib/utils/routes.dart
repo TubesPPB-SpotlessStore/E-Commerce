@@ -5,6 +5,7 @@ import 'package:spotless_store/screens/register/register_screen.dart';
 import 'package:spotless_store/screens/products/detail_product_screen.dart';
 import 'package:spotless_store/screens/splash/splash_screen.dart';
 import 'package:spotless_store/screens/splash/splash2_screen.dart';
+import 'package:spotless_store/screens/cart/cart_screen.dart';
 
 
 MaterialPageRoute _pageRoute(
@@ -23,6 +24,8 @@ Route? generateRoute(RouteSettings settings) {
     case rHome:
       _route = _pageRoute(body: HomeScreen(), settings: settings);
       break;
+    case rCart:
+      _route = _pageRoute(body: CartScreen(), settings: settings);
     case rProductDetail:
       if (_args is Map<String, dynamic>) {
         _route = _pageRoute(
@@ -43,4 +46,7 @@ final NAV_KEY = GlobalKey<NavigatorState>();
 const String rLogin = '/login';
 const String rRegister = '/register';
 const String rHome = '/home';
+const String rSplash = '/splash';
+const String rSplash2 = '/splash2';
+const String rCart = '/cart';
 const String rProductDetail = '/product-detail';

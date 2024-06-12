@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             onPressed: () {
-              // Aksi ketika ikon keranjang ditekan
+              Navigator.pushNamed(context, rCart);
             },
             icon: const Icon(Icons.shopping_cart),
             color: const Color.fromRGBO(0, 203, 225, 1),
