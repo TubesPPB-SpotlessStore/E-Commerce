@@ -38,7 +38,10 @@ dependencies:
   firebase_auth: ^5.0.0
   bloc: ^8.1.4
   flutter_bloc: ^8.1.6
+<<<<<<< HEAD
   flutter_svg: ^2.0.10+1
+=======
+>>>>>>> 7bae47b1f0e4a84fc9bed885cd90082b11107530
   cloud_firestore: ^5.0.1
 
 dev_dependencies:
