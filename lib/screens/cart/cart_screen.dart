@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class CartItem {
   final String id;
   final String title;
-  final String price;
+  final double price;
   final String description;
   final int quantity;
-  final String imageUrl; // Tambahkan properti imageUrl
+  final String imageUrl;
 
   CartItem({
     required this.id,
@@ -15,14 +15,14 @@ class CartItem {
     required this.price,
     required this.description,
     required this.quantity,
-    required this.imageUrl, // Inisialisasi properti imageUrl
+    required this.imageUrl,
   });
 }
 
 class CartScreen extends StatefulWidget {
   static String routeName = "/cart";
 
-  const CartScreen({Key? key}) : super(key: key); // Perbaiki parameter key
+  const CartScreen({Key? key}) : super(key: key);
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -32,17 +32,32 @@ class _CartScreenState extends State<CartScreen> {
   final CollectionReference cartCollection =
       FirebaseFirestore.instance.collection('cart');
 
-  void _increaseQuantity(String id, int currentQuantity) async {
+  double _parsePrice(String price) {
+    String cleanedPrice = price.replaceAll(
+        RegExp(r'[^0-9]'), ''); // Remove all non-numeric characters
+    return double.tryParse(cleanedPrice) ?? 0.0;
+  }
+
+  Future<void> _updateQuantityAndPrice(String id, int newQuantity) async {
+    DocumentSnapshot docSnapshot = await cartCollection.doc(id).get();
+    double unitPrice = _parsePrice(docSnapshot['price']);
+    double newTotalPrice = newQuantity * unitPrice;
+
     await cartCollection.doc(id).update({
-      'quantity': currentQuantity + 1,
+      'quantity': newQuantity,
+      'totalPrice': newTotalPrice,
     });
+  }
+
+  void _increaseQuantity(String id, int currentQuantity) async {
+    int newQuantity = currentQuantity + 1;
+    await _updateQuantityAndPrice(id, newQuantity);
   }
 
   void _decreaseQuantity(String id, int currentQuantity) async {
     if (currentQuantity > 1) {
-      await cartCollection.doc(id).update({
-        'quantity': currentQuantity - 1,
-      });
+      int newQuantity = currentQuantity - 1;
+      await _updateQuantityAndPrice(id, newQuantity);
     }
   }
 
@@ -78,11 +93,10 @@ class _CartScreenState extends State<CartScreen> {
               return CartItem(
                 id: doc.id,
                 title: data['title'] ?? 'No Title',
-                price: data['price'] ?? 'No Price',
+                price: _parsePrice(data['price'] ?? '0'),
                 description: data['description'] ?? 'No Description',
                 quantity: data['quantity'] ?? 1,
-                imageUrl: data['imageUrl'] ??
-                    '', // Ambil imageUrl dari data Firestore
+                imageUrl: data['imageUrl'] ?? '',
               );
             }).toList();
 
@@ -91,12 +105,9 @@ class _CartScreenState extends State<CartScreen> {
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: ListTile(
-                  leading: cartItems[index]
-                          .imageUrl
-                          .isNotEmpty // Periksa jika imageUrl tidak kosong
+                  leading: cartItems[index].imageUrl.isNotEmpty
                       ? Image.network(
-                          cartItems[index]
-                              .imageUrl, // Gunakan imageUrl dari CartItem
+                          cartItems[index].imageUrl,
                           width: 50,
                           height: 50,
                           fit: BoxFit.cover,
@@ -109,7 +120,7 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                   title: Text(cartItems[index].title),
                   subtitle: Text(
-                    "\$${cartItems[index].price}",
+                    "Rp${(cartItems[index].price * cartItems[index].quantity).toStringAsFixed(2).replaceAll(RegExp(r"([.]*00)(?!.*\d)"), "")}", // Updated here
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -121,7 +132,7 @@ class _CartScreenState extends State<CartScreen> {
                               cartItems[index].id, cartItems[index].quantity);
                         },
                       ),
-                      Text('Quantity: ${cartItems[index].quantity}'),
+                      Text('Qty: ${cartItems[index].quantity}'),
                       IconButton(
                         icon: Icon(Icons.add),
                         onPressed: () {
