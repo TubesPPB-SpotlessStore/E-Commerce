@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../constant.dart';
 
 class PaymentPage extends StatelessWidget {
   @override
@@ -18,9 +19,7 @@ class PaymentPage extends StatelessWidget {
             SizedBox(height: 16),
             _buildSummarySection(),
             Spacer(),
-            _buildTotalSection(),
-            SizedBox(height: 8),
-            _buildPlaceOrderButton(),
+            _buildTotalSectionWithButton(),
           ],
         ),
       ),
@@ -42,13 +41,33 @@ class PaymentPage extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 4),
-          Text('Rumah'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(child: Text('Rumah')),
+            ],
+          ),
           Text('Sasa | (+62) 3123456789'),
           Text('Jl. Gerilya, Bala Jaya No.22, Purwokerto Selatan'),
           SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Pilih Jadwal Pengiriman'),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: kPrimaryColor,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+              ),
+              onPressed: () {},
+              child: const Text(
+                "Pilih Jadwal Pengiriman",
+                style:
+                    TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+              ),
+            ),
           ),
         ],
       ),
@@ -71,16 +90,6 @@ class PaymentPage extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold)),
         Text('Rp31.000'),
         SizedBox(height: 16),
-        Text(
-          'Kemasan',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 8),
-        _buildProductItem('Totebag', 'Rp1.000', quantity: 1),
-        SizedBox(height: 8),
-        Text('Subtotal (1 Produk)',
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Rp1.000'),
       ],
     );
   }
@@ -123,24 +132,34 @@ class PaymentPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTotalSection() {
+  Widget _buildTotalSectionWithButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Total Pembayaran', style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Rp34.000',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Total Pembayaran',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text('Rp34.000',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          ],
+        ),
+        Spacer(),
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kPrimaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          child: const Text(
+            "Buat Pesanan",
+            style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+          ),
+        ),
       ],
-    );
-  }
-
-  Widget _buildPlaceOrderButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Text('Buat Pesanan'),
-      ),
     );
   }
 }
