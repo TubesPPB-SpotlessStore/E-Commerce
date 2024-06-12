@@ -151,41 +151,107 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 230,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: const [
+                children: [
                   ProductCard(
                     imagePath: 'assets/images/vixal.png',
                     title: 'Vixal',
                     price: "Rp21.000",
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        rProductDetail,
+                        arguments: {
+                          'imagePath': 'assets/images/vixal.png',
+                          'title': 'Vixal',
+                          'price': "Rp21.000",
+                        },
+                      );
+                    },
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   ProductCard(
                     imagePath: 'assets/images/lemon.png',
                     title: 'Mama Lemon',
                     price: "Rp14.000",
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        rProductDetail,
+                        arguments: {
+                          'imagePath': 'assets/images/lemon.png',
+                          'title': 'Mama Lemon',
+                          'price': "Rp14.000",
+                        },
+                      );
+                    },
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   ProductCard(
                     imagePath: 'assets/images/soklin.png',
                     title: 'SoKlin',
                     price: "Rp13.000",
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        rProductDetail,
+                        arguments: {
+                          'imagePath': 'assets/images/soklin.png',
+                          'title': 'SoKlin',
+                          'price': "Rp13.000",
+                        },
+                      );
+                    },
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   ProductCard(
                     imagePath: 'assets/images/super.png',
                     title: 'Super Pell',
                     price: "Rp18.000",
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        rProductDetail,
+                        arguments: {
+                          'imagePath': 'assets/images/super.png',
+                          'title': 'Super Pell',
+                          'price': "Rp18.000",
+                        },
+                      );
+                    },
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   ProductCard(
                     imagePath: 'assets/images/wipol.png',
                     title: 'Wipol',
                     price: "Rp10.000",
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        rProductDetail,
+                        arguments: {
+                          'imagePath': 'assets/images/wipol.png',
+                          'title': 'Wipol',
+                          'price': "Rp10.000",
+                        },
+                      );
+                    },
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   ProductCard(
                     imagePath: 'assets/images/lifebuoy.png',
                     title: 'Lifebuoy',
                     price: "Rp25.000",
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        rProductDetail,
+                        arguments: {
+                          'imagePath': 'assets/images/lifebuoy.png',
+                          'title': 'Lifebuoy',
+                          'price': "Rp25.000",
+                        },
+                      );
+                    },
                   ),
                 ],
               ),
