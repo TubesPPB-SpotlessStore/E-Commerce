@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotless_store/components/custom_card.dart';
 import 'package:spotless_store/components/product_card.dart';
+import 'package:spotless_store/utils/routes.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             onPressed: () {
-              // Aksi ketika ikon keranjang ditekan
+              Navigator.pushNamed(context, rCart);
             },
             icon: const Icon(Icons.shopping_cart),
             color: const Color.fromRGBO(0, 203, 225, 1),
