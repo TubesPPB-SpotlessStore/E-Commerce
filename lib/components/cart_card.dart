@@ -8,7 +8,7 @@ class CartCard extends StatelessWidget {
     required this.cart,
   }) : super(key: key);
 
-  final Cart cart;
+  final CartItem cart;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class CartCard extends StatelessWidget {
                 color: const Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.asset(cart.product.images[0]),
+              // child: Image.asset(cart.product.),
             ),
           ),
         ),
@@ -45,7 +45,7 @@ class CartCard extends StatelessWidget {
                     fontWeight: FontWeight.w600, color: Color(0xFFFF7643)),
                 children: [
                   TextSpan(
-                      text: " x${cart.numOfItem}",
+                      text: " x${cart.quantity}",
                       style: Theme.of(context).textTheme.bodyLarge),
                 ],
               ),
