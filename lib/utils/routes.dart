@@ -38,6 +38,7 @@ Route? generateRoute(RouteSettings settings) {
             imagePath: _args['imagePath'],
             title: _args['title'],
             price: _args['price'],
+            description: _args['description'],
           ),
           settings: settings,
         );
