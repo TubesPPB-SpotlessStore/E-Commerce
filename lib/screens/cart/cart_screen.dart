@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../models/Cart.dart';
 import '../../components/cart_card.dart';
@@ -54,7 +55,7 @@ class _CartScreenState extends State<CartScreen> {
                 child: Row(
                   children: [
                     const Spacer(),
-                    Image.asset("assets/icons/Trash.svg"),
+                    SvgPicture.asset('assets/icons/Trash.svg'),
                   ],
                 ),
               ),
