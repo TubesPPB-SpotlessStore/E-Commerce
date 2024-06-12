@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotless_store/bloc/login/login_cubit.dart';
@@ -5,6 +6,8 @@ import 'package:spotless_store/bloc/register/register_cubit.dart';
 import 'package:spotless_store/firebase_options.dart';
 //import 'package:spotless_store/bloc/login/login_cubit.dart';
 import 'package:spotless_store/screens/splash/splash_screen.dart';
+// import 'package:spotless_store/screens/splash/splash_screen.dart';
+import 'package:spotless_store/screens/splash.dart';
 import 'package:spotless_store/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => RegisterCubit())
       ],
       child: MaterialApp(
-        title: "Praktikum 6",
+        title: "Spotless Store",
         debugShowCheckedModeBanner: false,
         navigatorKey: NAV_KEY,
         onGenerateRoute: generateRoute,
