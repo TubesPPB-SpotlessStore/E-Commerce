@@ -6,6 +6,7 @@ import 'package:spotless_store/screens/products/detail_product_screen.dart';
 import 'package:spotless_store/screens/splash/splash_screen.dart';
 import 'package:spotless_store/screens/splash/splash2_screen.dart';
 import 'package:spotless_store/screens/cart/cart_screen.dart';
+import 'package:spotless_store/screens/payment/payment_screen.dart';
 
 MaterialPageRoute _pageRoute(
         {required Widget body, required RouteSettings settings}) =>
@@ -44,6 +45,9 @@ Route? generateRoute(RouteSettings settings) {
         );
       }
       break;
+    case rPayment:
+      _route = _pageRoute(body: PaymentPage(), settings: settings);
+      break;
   }
   return _route;
 }
@@ -56,3 +60,4 @@ const String rSplash = '/splash';
 const String rSplash2 = '/splash2';
 const String rCart = '/cart';
 const String rProductDetail = '/product-detail';
+const String rPayment = '/payment';

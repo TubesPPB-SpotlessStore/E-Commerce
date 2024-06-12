@@ -16,6 +16,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Have a nice day!'),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: IconButton(
+            icon: const Icon(Icons.logout),
+            color: const Color.fromRGBO(0, 203, 225, 1),
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, rLogin, (route) => false);
+            },
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
