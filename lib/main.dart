@@ -5,8 +5,8 @@ import 'package:spotless_store/bloc/register/register_cubit.dart';
 import 'package:spotless_store/firebase_options.dart';
 //import 'package:spotless_store/bloc/login/login_cubit.dart';
 // import 'package:spotless_store/screens/splash/splash_screen.dart';
+import 'package:spotless_store/screens/splash/splash_screen.dart';
 import 'package:spotless_store/utils/routes.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

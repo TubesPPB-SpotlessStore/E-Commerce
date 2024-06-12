@@ -3,6 +3,9 @@ import 'package:spotless_store/screens/home_screen.dart';
 import 'package:spotless_store/screens/login/login_screen.dart';
 import 'package:spotless_store/screens/register/register_screen.dart';
 import 'package:spotless_store/screens/products/detail_product_screen.dart';
+import 'package:spotless_store/screens/splash/splash_screen.dart';
+import 'package:spotless_store/screens/splash/splash2_screen.dart';
+
 
 MaterialPageRoute _pageRoute(
         {required Widget body, required RouteSettings settings}) =>
