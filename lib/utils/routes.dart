@@ -46,8 +46,19 @@ Route? generateRoute(RouteSettings settings) {
       }
       break;
     case rPayment:
-      _route = _pageRoute(body: PaymentPage(), settings: settings);
+      List<Map<String, dynamic>> products =
+          []; // Gantilah dengan daftar produk yang sesuai dari CartScreen
+      double totalAmount =
+          0.0; // Gantilah dengan total pembayaran yang sesuai dari CartScreen
+
+      _route = _pageRoute(
+        body: PaymentPage(products: products, totalAmount: totalAmount),
+        settings: settings,
+      );
       break;
+    // case rPayment:
+    //   _route = _pageRoute(body: PaymentPage(), settings: settings);
+    //   break;
   }
   return _route;
 }

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class PaymentPage extends StatelessWidget {
+  final List<Map<String, dynamic>> products;
+  final double totalAmount;
+
+  PaymentPage({required this.products, required this.totalAmount});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,9 +23,7 @@ class PaymentPage extends StatelessWidget {
             SizedBox(height: 16),
             _buildSummarySection(),
             Spacer(),
-            _buildTotalSection(),
-            SizedBox(height: 8),
-            _buildPlaceOrderButton(),
+            _buildTotalSectionWithButton(context),
           ],
         ),
       ),
@@ -42,13 +45,31 @@ class PaymentPage extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 4),
-          Text('Rumah'),
+          // Contoh informasi alamat pengiriman statis
           Text('Sasa | (+62) 3123456789'),
           Text('Jl. Gerilya, Bala Jaya No.22, Purwokerto Selatan'),
           SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Pilih Jadwal Pengiriman'),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.blue, // Ganti dengan warna yang sesuai
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue,
+                shadowColor: Colors.transparent,
+              ),
+              onPressed: () {
+                // Tambahkan logika pilihan jadwal pengiriman di sini
+              },
+              child: const Text(
+                "Pilih Jadwal Pengiriman",
+                style:
+                    TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+              ),
+            ),
           ),
         ],
       ),
@@ -64,38 +85,32 @@ class PaymentPage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8),
-        _buildProductItem('Tresemme Keratin', 'Rp21.000'),
-        _buildProductItem('Wipol', 'Rp10.000'),
+        for (var product in products)
+          _buildProductItem(product['name'], product['price']),
         SizedBox(height: 8),
-        Text('Subtotal (2 Produk)',
+        Text('Subtotal (${products.length} Produk)',
             style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Rp31.000'),
+        Text('Rp$totalAmount'),
         SizedBox(height: 16),
-        Text(
-          'Kemasan',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 8),
-        _buildProductItem('Totebag', 'Rp1.000', quantity: 1),
-        SizedBox(height: 8),
-        Text('Subtotal (1 Produk)',
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Rp1.000'),
       ],
     );
   }
 
-  Widget _buildProductItem(String name, String price, {int quantity = 0}) {
+  Widget _buildProductItem(String? name, String? price, {int quantity = 0}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(name),
-        Text(price),
+        Text(name ?? ''),
+        Text(price ?? ''),
       ],
     );
   }
 
   Widget _buildSummarySection() {
+    double subtotal = totalAmount;
+    double shippingCost =
+        2000; // Ongkos kirim placeholder, ganti dengan nilai yang sesuai
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -104,11 +119,11 @@ class PaymentPage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8),
-        _buildSummaryItem('Subtotal Produk', 'Rp32.000'),
-        _buildSummaryItem('Ongkos Kirim', 'Rp2.000'),
+        _buildSummaryItem('Subtotal Produk', 'Rp$totalAmount'),
+        _buildSummaryItem('Ongkos Kirim', 'Rp$shippingCost'),
         SizedBox(height: 8),
         Text('Total Pembayaran', style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Rp34.000'),
+        Text('Rp${subtotal + shippingCost}'),
       ],
     );
   }
@@ -123,23 +138,56 @@ class PaymentPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTotalSection() {
+  Widget _buildTotalSectionWithButton(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Total Pembayaran', style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Rp34.000',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Total Pembayaran',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text('Rp${totalAmount + 2000}',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          ],
+        ),
+        Spacer(),
+        ElevatedButton(
+          onPressed: () {
+            // Tambahkan logika untuk menyelesaikan pesanan di sini
+            _finishOrder(context);
+          },
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          child: const Text(
+            "Buat Pesanan",
+            style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildPlaceOrderButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Text('Buat Pesanan'),
+  void _finishOrder(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Order Confirmation'),
+        content: Text('Pesanan Anda telah berhasil dibuat.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Kembali ke halaman utama setelah menyelesaikan pesanan
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+            child: Text('OK'),
+          ),
+        ],
       ),
     );
   }

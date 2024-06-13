@@ -49,6 +49,38 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
+  Future<void> _deleteCartItem(String id) async {
+    await cartCollection.doc(id).delete();
+  }
+
+  Future<void> _showDeleteConfirmationDialog(String id) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Deletion'),
+          content: const Text(
+              'Are you sure you want to remove this item from the cart?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                await _deleteCartItem(id);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _increaseQuantity(String id, int currentQuantity) async {
     int newQuantity = currentQuantity + 1;
     await _updateQuantityAndPrice(id, newQuantity);
@@ -58,7 +90,18 @@ class _CartScreenState extends State<CartScreen> {
     if (currentQuantity > 1) {
       int newQuantity = currentQuantity - 1;
       await _updateQuantityAndPrice(id, newQuantity);
+    } else {
+      await _showDeleteConfirmationDialog(id);
     }
+  }
+
+  double _calculateTotalPrice(List<CartItem> cartItems) {
+    return cartItems.fold(
+        0.0, (sum, item) => sum + (item.price * item.quantity));
+  }
+
+  void _checkout(double totalPrice) {
+    Navigator.of(context).pushReplacementNamed('/payment');
   }
 
   @override
@@ -100,50 +143,77 @@ class _CartScreenState extends State<CartScreen> {
               );
             }).toList();
 
-            return ListView.builder(
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: ListTile(
-                  leading: cartItems[index].imageUrl.isNotEmpty
-                      ? Image.network(
-                          cartItems[index].imageUrl,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.asset(
-                          'assets/images/card.png',
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
+            double totalPrice = _calculateTotalPrice(cartItems);
+
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: cartItems.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: ListTile(
+                        leading: cartItems[index].imageUrl.isNotEmpty
+                            ? Image.network(
+                                cartItems[index].imageUrl,
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                'assets/images/card.png',
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.cover,
+                              ),
+                        title: Text(cartItems[index].title),
+                        subtitle: Text(
+                          "Rp${(cartItems[index].price * cartItems[index].quantity).toStringAsFixed(2).replaceAll(RegExp(r"([.]*00)(?!.*\d)"), "")}",
                         ),
-                  title: Text(cartItems[index].title),
-                  subtitle: Text(
-                    "Rp${(cartItems[index].price * cartItems[index].quantity).toStringAsFixed(2).replaceAll(RegExp(r"([.]*00)(?!.*\d)"), "")}", // Updated here
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.remove),
-                        onPressed: () {
-                          _decreaseQuantity(
-                              cartItems[index].id, cartItems[index].quantity);
-                        },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.remove),
+                              onPressed: () {
+                                _decreaseQuantity(cartItems[index].id,
+                                    cartItems[index].quantity);
+                              },
+                            ),
+                            Text('Qty: ${cartItems[index].quantity}'),
+                            IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () {
+                                _increaseQuantity(cartItems[index].id,
+                                    cartItems[index].quantity);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                      Text('Qty: ${cartItems[index].quantity}'),
-                      IconButton(
-                        icon: Icon(Icons.add),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total: Rp${totalPrice.toStringAsFixed(2).replaceAll(RegExp(r"([.]*00)(?!.*\d)"), "")}',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      ElevatedButton(
                         onPressed: () {
-                          _increaseQuantity(
-                              cartItems[index].id, cartItems[index].quantity);
+                          _checkout(totalPrice);
                         },
+                        child: Text('Checkout'),
                       ),
                     ],
                   ),
                 ),
-              ),
+              ],
             );
           },
         ),
