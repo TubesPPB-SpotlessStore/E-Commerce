@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spotless_store/screens/upload/upload_image_page.dart';
+// Pastikan path sesuai
 
 class PaymentPage extends StatelessWidget {
   final List<Map<String, dynamic>> products;
@@ -182,8 +184,11 @@ class PaymentPage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // Kembali ke halaman utama setelah menyelesaikan pesanan
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              // Navigasi ke halaman upload gambar setelah konfirmasi
+              Navigator.of(context).pop(); // Tutup dialog
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => UploadImagePage()),
+              );
             },
             child: Text('OK'),
           ),

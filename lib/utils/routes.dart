@@ -7,10 +7,12 @@ import 'package:spotless_store/screens/splash/splash_screen.dart';
 import 'package:spotless_store/screens/splash/splash2_screen.dart';
 import 'package:spotless_store/screens/cart/cart_screen.dart';
 import 'package:spotless_store/screens/payment/payment_screen.dart';
+import 'package:spotless_store/screens/upload/upload_image_page.dart'; // Import halaman upload image
 
 MaterialPageRoute _pageRoute(
         {required Widget body, required RouteSettings settings}) =>
     MaterialPageRoute(builder: (_) => body, settings: settings);
+
 Route? generateRoute(RouteSettings settings) {
   Route? _route;
   final _args = settings.arguments;
@@ -32,6 +34,7 @@ Route? generateRoute(RouteSettings settings) {
       break;
     case rCart:
       _route = _pageRoute(body: CartScreen(), settings: settings);
+      break;
     case rProductDetail:
       if (_args is Map<String, dynamic>) {
         _route = _pageRoute(
@@ -56,9 +59,9 @@ Route? generateRoute(RouteSettings settings) {
         settings: settings,
       );
       break;
-    // case rPayment:
-    //   _route = _pageRoute(body: PaymentPage(), settings: settings);
-    //   break;
+    case rUploadImage:
+      _route = _pageRoute(body: UploadImagePage(), settings: settings);
+      break;
   }
   return _route;
 }
@@ -72,3 +75,4 @@ const String rSplash2 = '/splash2';
 const String rCart = '/cart';
 const String rProductDetail = '/product-detail';
 const String rPayment = '/payment';
+const String rUploadImage = '/upload-image';
