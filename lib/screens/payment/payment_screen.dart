@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../constant.dart';
+import 'package:spotless_store/screens/upload/upload_image_page.dart';
 
 class PaymentPage extends StatelessWidget {
+  final List<Map<String, dynamic>> products;
+  final double totalAmount;
+
+  PaymentPage({required this.products, required this.totalAmount});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +24,7 @@ class PaymentPage extends StatelessWidget {
             SizedBox(height: 16),
             _buildSummarySection(),
             Spacer(),
-            _buildTotalSectionWithButton(),
+            _buildTotalSectionWithButton(context),
           ],
         ),
       ),
@@ -41,27 +46,25 @@ class PaymentPage extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(child: Text('Rumah')),
-            ],
-          ),
+          // Contoh informasi alamat pengiriman statis
           Text('Sasa | (+62) 3123456789'),
           Text('Jl. Gerilya, Bala Jaya No.22, Purwokerto Selatan'),
           SizedBox(height: 8),
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: kPrimaryColor,
+              color: Colors.blue, // Ganti dengan warna yang sesuai
               borderRadius: BorderRadius.circular(8),
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue,
                 shadowColor: Colors.transparent,
               ),
-              onPressed: () {},
+              onPressed: () {
+                // Tambahkan logika pilihan jadwal pengiriman di sini
+              },
               child: const Text(
                 "Pilih Jadwal Pengiriman",
                 style:
@@ -83,28 +86,32 @@ class PaymentPage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8),
-        _buildProductItem('Tresemme Keratin', 'Rp21.000'),
-        _buildProductItem('Wipol', 'Rp10.000'),
+        for (var product in products)
+          _buildProductItem(product['name'], product['price']),
         SizedBox(height: 8),
-        Text('Subtotal (2 Produk)',
+        Text('Subtotal (${products.length} Produk)',
             style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Rp31.000'),
+        Text('Rp$totalAmount'),
         SizedBox(height: 16),
       ],
     );
   }
 
-  Widget _buildProductItem(String name, String price, {int quantity = 0}) {
+  Widget _buildProductItem(String? name, String? price, {int quantity = 0}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(name),
-        Text(price),
+        Text(name ?? ''),
+        Text(price ?? ''),
       ],
     );
   }
 
   Widget _buildSummarySection() {
+    double subtotal = totalAmount;
+    double shippingCost =
+        2000; // Ongkos kirim placeholder, ganti dengan nilai yang sesuai
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -113,11 +120,11 @@ class PaymentPage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8),
-        _buildSummaryItem('Subtotal Produk', 'Rp32.000'),
-        _buildSummaryItem('Ongkos Kirim', 'Rp2.000'),
+        _buildSummaryItem('Subtotal Produk', 'Rp$totalAmount'),
+        _buildSummaryItem('Ongkos Kirim', 'Rp$shippingCost'),
         SizedBox(height: 8),
         Text('Total Pembayaran', style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Rp34.000'),
+        Text('Rp${subtotal + shippingCost}'),
       ],
     );
   }
@@ -132,7 +139,7 @@ class PaymentPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTotalSectionWithButton() {
+  Widget _buildTotalSectionWithButton(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -141,15 +148,19 @@ class PaymentPage extends StatelessWidget {
           children: [
             Text('Total Pembayaran',
                 style: TextStyle(fontWeight: FontWeight.bold)),
-            Text('Rp34.000',
+            Text('Rp${totalAmount + 2000}',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           ],
         ),
         Spacer(),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            // Tambahkan logika untuk menyelesaikan pesanan di sini
+            _finishOrder(context);
+          },
           style: ElevatedButton.styleFrom(
-            backgroundColor: kPrimaryColor,
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.blue,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -160,6 +171,28 @@ class PaymentPage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  void _finishOrder(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Order Confirmation'),
+        content: Text('Pesanan Anda telah berhasil dibuat.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Navigasi ke halaman upload gambar setelah konfirmasi
+              Navigator.of(context).pop(); // Tutup dialog
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => UploadImagePage()),
+              );
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
     );
   }
 }

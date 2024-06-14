@@ -1,16 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Product.dart';
 
-class Cart {
+class CartItem {
   final Product product;
-  final int numOfItem;
+  final int quantity;
 
-  Cart({required this.product, required this.numOfItem});
+  CartItem({
+    required this.product,
+    required this.quantity,
+  });
+
+  // Factory constructor to create a CartItem from a Firestore document
+  factory CartItem.fromDocument(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return CartItem(
+      product: Product.fromMap(data['product'], doc.id),
+      quantity: data['quantity'] ?? 1,
+    );
+  }
 }
-
-// Demo data for our cart
-
-List<Cart> demoCarts = [
-  Cart(product: demoProducts[0], numOfItem: 2),
-  Cart(product: demoProducts[1], numOfItem: 1),
-  Cart(product: demoProducts[3], numOfItem: 1),
-];
