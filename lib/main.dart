@@ -5,11 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotless_store/bloc/login/login_cubit.dart';
 import 'package:spotless_store/bloc/register/register_cubit.dart';
 import 'package:spotless_store/firebase_options.dart';
-import 'package:spotless_store/screens/home_screen.dart';
-import 'package:spotless_store/screens/login/login_screen.dart';
-//import 'package:spotless_store/bloc/login/login_cubit.dart';
-//import 'package:spotless_store/screens/splash/splash_screen.dart';
-import 'package:spotless_store/screens/splash/splash_screen.dart';
+import 'package:spotless_store/screens/splash/splash_screen_wrapper.dart';
 import 'package:spotless_store/utils/routes.dart';
 
 void main() async {
@@ -22,6 +18,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -34,22 +31,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: NAV_KEY,
         onGenerateRoute: generateRoute,
-        home: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (snapshot.hasData) {
-              return const HomeScreen();
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text('Something went wrong'),
-              );
-            } else {
-              return const LoginScreen();
-            }
-          },
-        ),
+        home: const SplashScreenWrapper(),
       ),
     );
   }

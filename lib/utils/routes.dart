@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotless_store/screens/home_screen.dart';
-import 'package:spotless_store/screens/login/login_screen.dart';
-import 'package:spotless_store/screens/register/register_screen.dart';
+import 'package:spotless_store/screens/auth/login/login_screen.dart';
+import 'package:spotless_store/screens/auth/register/register_screen.dart';
 import 'package:spotless_store/screens/products/detail_product_screen.dart';
 import 'package:spotless_store/screens/splash/splash_screen.dart';
 import 'package:spotless_store/screens/splash/splash2_screen.dart';
