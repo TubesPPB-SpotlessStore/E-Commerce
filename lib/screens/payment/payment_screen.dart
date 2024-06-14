@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotless_store/constant.dart';
 import 'package:spotless_store/screens/upload/upload_image_page.dart';
 // Pastikan path sesuai
 
@@ -54,13 +55,13 @@ class PaymentPage extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.blue, // Ganti dengan warna yang sesuai
+              color: kPrimaryColor, // Ganti dengan warna yang sesuai
               borderRadius: BorderRadius.circular(8),
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Colors.blue,
+                backgroundColor: kPrimaryColor,
                 shadowColor: Colors.transparent,
               ),
               onPressed: () {
@@ -161,7 +162,7 @@ class PaymentPage extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.blue,
+            backgroundColor: kPrimaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
