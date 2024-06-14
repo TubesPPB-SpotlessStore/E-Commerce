@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotless_store/constant.dart';
 import 'package:spotless_store/screens/upload/upload_image_page.dart';
-// Pastikan path sesuai
 
 class PaymentPage extends StatelessWidget {
   final List<Map<String, dynamic>> products;
